@@ -1,0 +1,2 @@
+debian/bin/CharlieBrownCoind usr/bin
+src/CharlieBrownCoind usr/lib/CharlieBrownCoin

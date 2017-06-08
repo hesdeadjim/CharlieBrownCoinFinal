@@ -1,0 +1,11 @@
+[Unit]
+Description=CharlieBrownCoin daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=CharlieBrownCoin
+ExecStart=/opt/CharlieBrownCoin/CharlieBrownCoind
+
+[Install]
+WantedBy=multi-user.target

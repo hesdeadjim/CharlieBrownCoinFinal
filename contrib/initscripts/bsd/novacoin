@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: CharlieBrownCoin
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# CharlieBrownCoin_enable (bool): Set to NO by default. Set this variable to YES if you want to enable CharlieBrownCoin service.
+# CharlieBrownCoin_config (path): Set to /usr/local/etc/CharlieBrownCoin.conf by default.
+# CharlieBrownCoin_user:  The user account CharlieBrownCoin daemon runs as. It uses 'root' user by default.
+# CharlieBrownCoin_group: The group account CharlieBrownCoin daemon runs as. It uses 'wheel' group by default.
+# CharlieBrownCoin_datadir (str): Default to "/var/db/CharlieBrownCoin". Base data directory.
+
+. /etc/rc.subr
+
+name=CharlieBrownCoin
+rcvar=CharlieBrownCoin_enable
+
+: ${CharlieBrownCoin_enable:=NO}
+: ${CharlieBrownCoin_config=/usr/local/etc/CharlieBrownCoin.conf}
+: ${CharlieBrownCoin_datadir=/var/db/CharlieBrownCoin}
+: ${CharlieBrownCoin_user="root"}
+: ${CharlieBrownCoin_group="wheel"}
+
+required_files=${CharlieBrownCoin_config}
+command=/usr/local/bin/CharlieBrownCoind
+CharlieBrownCoin_chdir=${CharlieBrownCoin_datadir}
+pidfile="${CharlieBrownCoin_datadir}/CharlieBrownCoind.pid"
+stop_cmd=CharlieBrownCoin_stop
+command_args="-conf=${CharlieBrownCoin_config} -datadir=${CharlieBrownCoin_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+CharlieBrownCoin_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${CharlieBrownCoin_datadir}
+	[ $? -eq 0 ] && chown -R ${CharlieBrownCoin_user}:${CharlieBrownCoin_group} ${CharlieBrownCoin_datadir}
+}
+
+CharlieBrownCoin_prestart()
+{
+	if [ ! -d "${CharlieBrownCoin_datadir}/." ]; then
+		CharlieBrownCoin_create_datadir || return 1
+	fi
+}
+
+CharlieBrownCoin_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+CharlieBrownCoin_stop()
+{
+    CharlieBrownCoin_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${CharlieBrownCoin_config} -datadir=${CharlieBrownCoin_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"

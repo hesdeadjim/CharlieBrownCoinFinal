@@ -1,0 +1,5 @@
+CharlieBrownCoin-qt usr/bin
+share/pixmaps/CharlieBrownCoin32.xpm usr/share/pixmaps
+share/pixmaps/CharlieBrownCoin80.xpm usr/share/pixmaps
+debian/CharlieBrownCoin-qt.desktop usr/share/applications
+debian/CharlieBrownCoin-qt.protocol usr/share/kde4/services/

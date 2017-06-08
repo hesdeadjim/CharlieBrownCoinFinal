@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=CharlieBrownCoin
+Comment=CharlieBrownCoin P2P Cryptocurrency
+Comment[ru]=CharlieBrownCoin, P2P криптовалюта
+Comment[fr]=CharlieBrownCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=CharlieBrownCoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/CharlieBrownCoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/CharlieBrownCoin80.xpm
+MimeType=x-scheme-handler/CharlieBrownCoin;
+Categories=Office;

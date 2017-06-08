@@ -1,0 +1,9 @@
+Building CharlieBrownCoin
+
+See doc/readme-qt.rst for instructions on building CharlieBrownCoin Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of CharlieBrownCoin.
+
+See doc/build-*.txt for instructions on building CharlieBrownCoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of CharlieBrownCoin.
